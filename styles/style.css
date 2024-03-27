@@ -1,0 +1,18 @@
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.todo-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.todo-item .button-container {
+    margin-left: auto;
+}
+
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+}
