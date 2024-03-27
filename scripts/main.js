@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (todos) {
             todoList.innerHTML = todos;
         }
+        // Відновлення стану прапорця
+        const checkboxes = document.querySelectorAll('.todo-item input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkbox.closest('.todo-item').querySelector('span').style.textDecoration = 'line-through';
+            }
+        });
     }
 
     // Відновлення списку при завантаженні сторінки
@@ -28,12 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (editMode) {
                 // Оновлення існуючого завдання
                 editedItem.querySelector('span').textContent = todoText;
-                editedItem.querySelector('.button-container').innerHTML = `
-          <input type="checkbox" class="form-check-input" id="completed">
-          <span class="text-left">${todoText}</span>
-          <button class="btn btn-sm btn-primary ml-2">Edit</button>
-          <button class="btn btn-sm btn-danger ml-2">Delete</button>
-        `;
                 editedItem = null;
                 editMode = false;
             } else {
@@ -42,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 todoItem.classList.add('todo-item', 'd-flex', 'justify-content-between', 'align-items-center');
                 todoItem.innerHTML = `
           <input type="checkbox" class="form-check-input" id="completed">
-          <span class="text-left">${todoText}</span>
+          <span>${todoText}</span>
           <div class="button-container">
-            <button class="btn btn-sm btn-primary ml-2">Edit</button>
-            <button class="btn btn-sm btn-danger ml-2">Delete</button>
+            <button class="btn btn-sm btn-primary ml-2">Редагувати</button>
+            <button class="btn btn-sm btn-danger ml-2">Видалити</button>
           </div>
         `;
                 todoList.appendChild(todoItem);
@@ -60,9 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const target = event.target;
         if (target.tagName === 'BUTTON') {
             const todoItem = target.closest('li');
-            if (target.textContent === 'Delete') {
+            if (target.textContent === 'Видалити') {
                 todoItem.remove();
-            } else if (target.textContent === 'Edit') {
+            } else if (target.textContent === 'Редагувати') {
                 todoInput.value = todoItem.querySelector('span').textContent;
                 editedItem = todoItem;
                 editMode = true;
